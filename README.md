@@ -22,7 +22,7 @@ first move to the your cloned directory then run/ aller dans le dossier cloné e
 
 pip install -r requirements.txt
 
-#Run the Server/ Lancer le serveur :
+# Run the Server/ Lancer le serveur :
 
 python manage.py makemigrations
 
