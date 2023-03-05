@@ -35,5 +35,3 @@ python manage.py runserver
 # You can switch to the code, It' s full of comment!
 
 happy coding
-
-i will update it to add the refresh logic soon
