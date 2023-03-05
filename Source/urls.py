@@ -34,6 +34,7 @@ router = routers.DefaultRouter()
 router.register(r"user", Core.views.UserViewSet, 'user')
 router.register(r"auth/register", viewSets.RegisterViewSet, basename='auth-register')
 router.register(r"auth/login", viewSets.LoginViewSet, basename='auth-login')
+router.register(r"auth/refresh", viewSets.RefreshViewSet, basename='auth-refresh')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
