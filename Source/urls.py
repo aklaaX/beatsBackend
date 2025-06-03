@@ -25,7 +25,7 @@ from rest_framework import routers
 import Core.views
 
 from Core.Auth import viewSets
-
+from Beats.views import BeatViewSet
 
 # Creating a Router for my endpoint :
 router = routers.DefaultRouter()
@@ -35,6 +35,7 @@ router.register(r"user", Core.views.UserViewSet, 'user')
 router.register(r"auth/register", viewSets.RegisterViewSet, basename='auth-register')
 router.register(r"auth/login", viewSets.LoginViewSet, basename='auth-login')
 router.register(r"auth/refresh", viewSets.RefreshViewSet, basename='auth-refresh')
+router.register(r"beats", BeatViewSet, basename='beats')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

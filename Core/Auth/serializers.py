@@ -24,17 +24,20 @@ class LoginSerializer(TokenObtainPairSerializer):
 
         return data # Data is a dictionnary, it can also be a JSOn, the magic of serializer;
     
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['role'] = user.role
+        return token
 
-
-# With Django, we need to write form in order to retrieve information 
+# With Django, we need to write form in order to retrieve information
 # from a post request and deal with them, With DRF we need Serializer
 class RegisterSerializer(UserSerializer):
 
-    password = serializers.CharField(max_length = 128,
-        min_length = 8,
-        write_only=True,
-        required=True
-    )
+    password = serializers.CharField(max_length=128,
+                                      min_length=8,
+                                      write_only=True,
+                                      required=True
+                                      )
     avatar = serializers.FileField(
         required=False
     )

@@ -25,7 +25,23 @@ SECRET_KEY = 'django-insecure-5g7g3ivmnov4krwlt_+#g!t8voijusmvvx1@3ba#pivkp*vlou
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+import os
+# This is used to set the allowed hosts, in production, you should set it to your domain name
+if 'DJANGO_ALLOWED_HOSTS' in os.environ:
+    ALLOWED_HOSTS = os.environ['DJANGO_ALLOWED_HOSTS'].split(',')
+else:
+    # For development purposes, we can set it to an empty list
+    ALLOWED_HOSTS = ["*"]
+    
+
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'ALGORITHM': 'HS256',
+    'VERIFYING_KEY': None,  # utilisé pour vérifier les tokens entrants
+    #'SIGNING_KEY': 'super-secret-key-used-for-signing',  # utilisée pour signer les tokens sortants
+    #'TOKEN_BACKEND_CLASS': 'Json-Web-Token-with-Django-API.Core.Auth.backend.UnsafeTokenBackend',
+}
 
 
 ###################################
@@ -50,6 +66,7 @@ INSTALLED_APPS = [
     'Core',
     'Core.Auth',
     'Blog',
+    'Beats',
 ]
 
 # Now, we are setting an Authentication with APi, We need to set the Default \
@@ -57,7 +74,9 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':(
+        #'Core.Auth.backend.UnsafeTokenBackend',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        
     ),
     'DEFAULT_FILTER_BACKENDS':[
         'django_filters.rest_framework.DjangoFilterBackend' ],

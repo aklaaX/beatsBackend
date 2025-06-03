@@ -1,37 +1,18 @@
-# Json-Web-Token-with-Django-API
-Implementation of JWT with permission to secure endpoint with Django/DRF
-language: Eng/FR
+# BeatApp - Projet personnel :
+![BeatApp Logo](background.jpg)
 
--------------------------------------------------------------------------
+Un projet en Django que je développe pour mieux distribuer mes beats en ligne. Vous voyez que je sais coder ??? Je suis même un expert 😂😂😂😂.
+Même la Machette ne me ferai rien je suis aklaaX.
+Les fonctionnalités que j'ai implémentées jusqu'à présent sont les suivantes :
+- Authentification par username et mot de passe
+- Authentification par token JWT
+- Création de compte
+- Création, Administration des beats : Uniquement pour les utilisateurs  avec le rôle "Admin". Actuellement il n'y a que le tout premier utilisateur avec ce rôle, et c'est moi 😂: a.k.a : aklaaX
+- Ecouter les beats : Pour tous les utilisateurs
+- Seul les beats publiés sont visibles pour les utilisateurs dont le rôle est "Visitor"
 
-To test and remember : 
+J'ai contacté un dévéloppeur pour me faire ce projet, mais il le trouvait trop compliqué et m'a dit qu'il ne pouvait pas le faire.
+Je n’ai pas encore tout sécurisé, mais c’est déjà bien mieux que les plateformes classiques.  
+Backend : Django / Frontend : NextJS
 
-create an environnement from your command-line in the folder you want/creer un environnement depuis le cmd dans un dossier
-
->> python -m venv <name_of_environnement>
-
-# Then activate that environment/Activer l'environnement créé : 
-"./<name_of_environnement>/Scripts/activate"
-
-# Clone the repository/ Cloner le depot:
-git clone https://github.com/IlemLembo/Json-Web-Token-with-Django-API.git
-
-# Install the package from the requirements.txt file/ Installer les packages depuis le ficher requirements.txt :
-
-first move to the your cloned directory then run/ aller dans le dossier cloné et installer entrer dans la ligne de commande:
-
-pip install -r requirements.txt
-
-# Run the Server/ Lancer le serveur :
-
-python manage.py makemigrations
-
-python manage.py migrate
-
-python manage.py runserver
-
-
-# You can use Insomnia or Postman to test the Api!
-# You can switch to the code, It' s full of comment!
-
-happy coding
+Machetté par : [AklaaX](https://github.com/AklaaX)
