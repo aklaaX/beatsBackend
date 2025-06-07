@@ -51,7 +51,7 @@ class LoginViewSet(ViewSet):
     serializer_class = LoginSerializer # We now set the serializer with which information that are posted against this endpoint will be serialized
 
     permission_classes = [permissions.AllowAny,] # This endpoint should be accessible to anyone, because of curse it is the Login endpoint, where user will be authenticated
-    http_method_names = ['post',] # Limiting the http method on this endpoint to 'post' method only 
+    http_method_names = ['post','options'] # Limiting the http method on this endpoint to 'post' method only
 
     def create(self, request, *args, **kwargs):
 

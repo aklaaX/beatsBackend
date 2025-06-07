@@ -6,7 +6,6 @@ from django.contrib.auth.hashers import make_password
 # Create your models here.
 
 class User(AbstractUser):
-
     avatar = models.FileField(upload_to="avatars", blank=True, null=True)
     role = models.CharField(max_length=20, default='Visitor', choices=[
         ('Visitor', 'Visitor'),

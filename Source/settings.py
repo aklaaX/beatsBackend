@@ -31,12 +31,17 @@ if 'DJANGO_ALLOWED_HOSTS' in os.environ:
     ALLOWED_HOSTS = os.environ['DJANGO_ALLOWED_HOSTS'].split(',')
 else:
     # For development purposes, we can set it to an empty list
-    ALLOWED_HOSTS = ["*"]
-    
+    ALLOWED_HOSTS = ["*", "localhost", "localhost:9002"]
+
+if 'DJANGO_CORS_ALLOWED_ORIGINS' in os.environ:
+    CORS_ALLOWED_ORIGINS = os.environ['DJANGO_CORS_ALLOWED_ORIGINS'].split(',')
+else:
+    CORS_ALLOW_ALL_ORIGINS = True
 
 from datetime import timedelta
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=24),  # Durée de vie du token d'accès
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # Durée de vie du token de rafraîchissement
     'ALGORITHM': 'HS256',
     'VERIFYING_KEY': None,  # utilisé pour vérifier les tokens entrants
     #'SIGNING_KEY': 'super-secret-key-used-for-signing',  # utilisée pour signer les tokens sortants
@@ -57,6 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',  # This is used to set the CORS headers, so that we can access the API from other domains
 
     ############ Externals packages ############
     'rest_framework',
@@ -75,7 +81,7 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':(
         #'Core.Auth.backend.UnsafeTokenBackend',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        #'rest_framework_simplejwt.authentication.JWTAuthentication',
         
     ),
     'DEFAULT_FILTER_BACKENDS':[
@@ -89,6 +95,7 @@ AUTH_USER_MODEL = 'Core.User'
 ###################################
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # This is used to set the CORS headers, so that we can access the API from other domains
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -122,13 +129,22 @@ WSGI_APPLICATION = 'Source.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+} """
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'beatdb',
+        'USER': 'beatuser',
+        'PASSWORD': 'beatpass',
+        'HOST': 'mysql-vuln',
+        'PORT': '3306',
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -170,3 +186,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Serve media files from /beats/audio/
+MEDIA_URL = '/beats/audio/'
+MEDIA_ROOT = os.path.join(BASE_DIR)

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.conf.urls.static import static
 
 # Now, we need to set an url, for the endpoint For that we need to import router :
 from rest_framework import routers
@@ -26,7 +26,7 @@ import Core.views
 
 from Core.Auth import viewSets
 from Beats.views import BeatViewSet
-
+from Source import settings
 # Creating a Router for my endpoint :
 router = routers.DefaultRouter()
 
@@ -43,4 +43,4 @@ urlpatterns = [
 
     path('api-auth/', include('rest_framework.urls')),    
     path('api/', include(router.urls)),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
